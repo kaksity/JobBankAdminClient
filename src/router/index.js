@@ -4,13 +4,8 @@ import Login from '@/views/auth/TheLogin.vue';
 import Layout from '@/views/layouts/AppLayout.vue';
 import LayoutWithoutSidebar from '@/views/layouts/AppLayoutWithoutSidebar.vue';
 
-import components from './modules/components';
-import widgets from './modules/widgets';
-import uiComponents from './modules/ui-components';
-import tables from './modules/tables';
-import charts from './modules/charts';
-import excel from './modules/excel';
-
+import Profile from './modules/profile';
+import Report from './modules/report';
 Vue.use(Router);
 
 /**
@@ -60,12 +55,8 @@ export default new Router({
             icon: 'dashboard',
           },
         },
-        components,
-        widgets,
-        uiComponents,
-        tables,
-        charts,
-        excel,
+        Profile,
+        Report,
       ],
     },
     {

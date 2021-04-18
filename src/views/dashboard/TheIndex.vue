@@ -6,12 +6,6 @@
       align-center
       wrap
     >
-      <v-flex xs12>
-        <dynamic-analysis />
-      </v-flex>
-      <v-flex xs12>
-        <total-statistics />
-      </v-flex>
       <v-flex
         lg3
         sm6
@@ -22,15 +16,6 @@
         <v-card>
           <separate-indicator :config="config" />
         </v-card>
-      </v-flex>
-    </v-layout>
-    <v-layout
-      justify-center
-      align-center
-      wrap
-    >
-      <v-flex xs12>
-        <visitors-location />
       </v-flex>
     </v-layout>
   </div>

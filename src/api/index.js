@@ -28,7 +28,7 @@ Object.keys(urls).map((url) => {
 
 export default new function API() {
   // auth
-  this.login = params => request.post(authUrls.login, params);
+  this.Login = params => request.post('/login', params);
   this.logout = () => request.post(authUrls.logout);
   this.readMe = params => request.get(authUrls.readMe, params);
 
@@ -40,5 +40,6 @@ export default new function API() {
   this.deleteUsers = id => request.delete(urls.deleteUsers.replace('<id>', id));
 
   // table
-  this.readTablesList = () => request.get(urls.readTablesList, {});
+  //this.readTablesList = () => request.get(urls.readTablesList, {});
+  this.GetAllCompletedProfile = (Page,Size) => request.get(`/profile?type=true&page=${Page}&size=${Size}`);
 }();

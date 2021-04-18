@@ -9,13 +9,12 @@ const state = {
 const getters = {};
 
 const actions = {
-  login({ commit, dispatch }, params) {
-    return API.login(params).then((value) => {
-      commit(types.LOGIN, { value });
-      const token = value.data.access_token;
+  Login({ commit, dispatch }, params) {
+    return API.Login(params).then((Value) => {
+      commit('LoginMutation', Value);
+      const token = Value.data.token;
       localStorage.setItem('token', token);
-      dispatch('readMe', { token });
-      return value;
+      return Value;
     }, res => Promise.reject(res));
   },
   readMe({ commit }, params) {
@@ -24,20 +23,18 @@ const actions = {
     }, res => Promise.reject(res));
   },
   logout({ commit }) {
-    return API.logout().then(() => {
-      commit(types.LOGOUT);
-    }, res => Promise.reject(res));
+    commit('LogOutMutation');
   },
 };
 
 const mutations = {
-  [types.READ_ME](state, { value }) {
+  [types.READ_ME](state, value) {
     state.me = value.data;
   },
-  [types.LOGIN](state, { value }) {
-    state.token = value.data.access_token;
+  LoginMutation(state, value) {
+    state.token = value.data.token;
   },
-  [types.LOGOUT](state) {
+  LogOutMutation(state) {
     localStorage.removeItem('token');
     state.token = null;
   },

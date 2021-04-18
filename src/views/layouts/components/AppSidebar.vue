@@ -36,7 +36,7 @@
                 <v-icon>{{ cRoute.meta && cRoute.meta.icon }}</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
-                <v-list-tile-title>{{ generateTitle(cRoute.name, route) }}</v-list-tile-title>
+                <v-list-tile-title>{{ generateTitle(cRoute.name) }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
@@ -136,12 +136,8 @@ export default {
     toggleTemporary(val) {
       this.temporary = val;
     },
-    generateTitle(title, route) {
-      if (route && route.name === 'UIComponents') {
-        return title;
-      }
-
-      return title ? this.$t(`sidebar.${fistLowerUpper(title)}`) : '';
+    generateTitle(title) {
+      return title;
     },
   },
   created() {

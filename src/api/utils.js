@@ -5,6 +5,7 @@ import Snackbar from '../components/snackbar/index';
 Vue.prototype.$http = Axios;
 
 const service = Vue.prototype.$http.create({
+  baseURL: 'http://localhost:7010/api/v1/admin/',
   headers: {
     'content-type': Vue.prototype.contentType || 'application/json;charset=utf-8',
   },
@@ -15,7 +16,7 @@ service.interceptors.request.use((request) => {
   const token = localStorage.getItem('token');
 
   if (token) {
-    request.headers.Authorization = `${Vue.prototype.authType || 'Bearer'} ${token}`;
+    request.headers.Authorization = `${token}`;
   }
 
   return request;
@@ -36,16 +37,14 @@ function access(url, param, method) {
   const upperMethod = method.toUpperCase();
 
   /* eslint-disable no-underscore-dangle */
-  const __randNum = Math.random();
-
   if (upperMethod === 'POST') {
-    ret = service.post(url, param, { params: { __randNum } });
+    ret = service.post(url, param);
   } else if (upperMethod === 'PUT') {
-    ret = service.put(url, param, { params: { __randNum } });
+    ret = service.put(url, param);
   } else if (upperMethod === 'DELETE') {
-    ret = service.delete(url, { params: { ...param, __randNum } });
+    ret = service.delete(url);
   } else {
-    ret = service.get(url, { params: { ...param, __randNum } });
+    ret = service.get(url);
   }
 
   return ret.then((res) => {
@@ -53,32 +52,12 @@ function access(url, param, method) {
     // When successful, the body data is returned;
     // when it fails, it returns res,
     // in order to ensure the same as the return value of the http request error.
-    if (res.data.ok) {
+
+    if (res.data.success === true) {
       return res.data;
     }
-
     return Promise.reject(res);
-  }, (res) => {
-    // FIXME: This is not the best method.
-    let errMsg = '';
-
-    if (res.status === 401) {
-      errMsg = '您无权访问该页面';
-    } else if (res.status === 403) {
-      errMsg = '禁止访问';
-    } else if (res.status === 404) {
-      errMsg = '您访问的页面不存在了';
-    } else if (res.status === 500) {
-      errMsg = '服务器出了一点问题，请联系管理员';
-    }
-
-    if (errMsg) {
-      Snackbar.error(errMsg);
-    }
-
-    // Throw it again so you can handle it later.
-    return Promise.reject(res);
-  });
+  }, res => Promise.reject(res));
 }
 
 export default {

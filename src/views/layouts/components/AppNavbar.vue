@@ -19,13 +19,10 @@
           :to="{ name : 'Dashboard' }"
           class="toolbar-title"
         >
-          <span>VUE-ADMIN-VUETIFY</span>
+          <span>BORNO JOB BANK ADMIN</span>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-
-      <!-- menu -->
-      <navbar-menu />
 
       <v-spacer></v-spacer>
 
@@ -40,33 +37,7 @@
           :close-on-content-click="false"
           transition="scale-transition"
         >
-          <v-btn
-            icon
-            flat
-            slot="activator"
-          >
-            <v-badge
-              v-if="badgeLen"
-              color="red"
-              overlap
-            >
-              <span slot="badge">{{ badgeLen }}</span>
-              <v-icon medium>notifications</v-icon>
-            </v-badge>
-            <v-icon
-              v-else
-              medium
-            >notifications</v-icon>
-          </v-btn>
-          <notification-list @unreadLen="(val) => badgeLen = val" />
         </v-menu>
-        <v-btn
-          class="hidden-xs-only"
-          icon
-          large
-        >
-          <app-screenfull fill="#333539" />
-        </v-btn>
         <v-menu
           attach
           offset-y
@@ -101,19 +72,6 @@
                 <base-langbar />
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile @click="toGithub">
-              <v-list-tile-avatar>
-                <svg-icon
-                  style="font-size:21px;"
-                  icon-class="github"
-                />
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  GitHub
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
             <v-list-tile>
               <v-list-tile-avatar>
                 <v-icon>account_circle</v-icon>
@@ -136,7 +94,6 @@
             </v-list-tile>
           </v-list>
         </v-menu>
-        <base-langbar v-if="$vuetify && $vuetify.breakpoint.smAndUp" />
       </v-toolbar-items>
     </v-toolbar>
   </header>
@@ -175,11 +132,7 @@ export default {
     }),
   },
   methods: {
-    toGithub() {
-      window.open('https://github.com/vasttian/vue-admin-vuetify');
-    },
     logout() {
-      console.log('logout');
       this.$router.push({ name: 'Login' });
     },
   },

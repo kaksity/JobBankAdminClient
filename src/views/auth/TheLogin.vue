@@ -20,7 +20,6 @@
       <v-app class="login-con">
         <!-- <v-spacer></v-spacer> -->
         <v-content>
-          <base-langbar />
           <v-container
             fluid
             fill-height
@@ -31,25 +30,25 @@
             >
               <v-flex class="frame">
                 <h1 v-if="!isMobile">
-                  {{ $t('common.loginN')}}
+                  Log In
                 </h1>
                 <v-form>
                   <v-text-field
-                    v-model="form.username"
+                    v-model="EmailAddress"
                     prepend-icon="person"
                     clearable
-                    :label="$t('common.username')"
+                    label="Email Address"
                     @keyup.enter.native="login"
                     required
                   ></v-text-field>
                   <v-text-field
-                    v-model="form.password"
+                    v-model="Password"
                     prepend-icon="lock"
                     @keyup.enter.native="login"
                     :append-icon="showPwd ? 'visibility_off' : 'visibility'"
                     :type="showPwd ? 'text' : 'password'"
                     @click:append="showPwd = !showPwd"
-                    :label="$t('common.password')"
+                    label="Password"
                     required
                   ></v-text-field>
                   <v-layout
@@ -112,10 +111,8 @@ export default {
     return {
       currentYear: new Date().getFullYear(),
       showPwd: false,
-      form: {
-        username: 'admin',
-        password: 'admin123',
-      },
+      EmailAddress: '',
+      Password: '',
       loginLoading: false,
     };
   },
@@ -126,13 +123,19 @@ export default {
   },
   methods: {
     login() {
-      if (!this.form.password || !this.form.username) {
+      if (!this.EmailAddress || !this.Password) {
         return;
       }
 
       this.loginLoading = true;
+
+      const Form = {
+        email_address: this.EmailAddress,
+        password: this.Password,
+      };
+
       this.$store
-        .dispatch('login', this.form)
+        .dispatch('Login', Form)
         .then(() => {
           try {
             this.$router.push({ name: 'Index' });

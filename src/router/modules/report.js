@@ -1,6 +1,6 @@
 const routes = {
-  path: '/widgets',
-  name: 'Widgets',
+  path: '/reports',
+  name: 'Reports',
   component: {
     template: '<router-view></router-view>',
   },
@@ -10,6 +10,12 @@ const routes = {
     icon: 'widgets',
   },
   children: [
+    {
+      path: 'icons',
+      name: 'Com',
+      component: () => import('@/views/widgets/svg-icon/VIcons.vue'),
+      meta: {},
+    },
     {
       path: 'icons',
       name: 'Icons',
