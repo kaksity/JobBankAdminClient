@@ -42,4 +42,5 @@ export default new function API() {
   // table
   //this.readTablesList = () => request.get(urls.readTablesList, {});
   this.GetAllCompletedProfile = (Page,Size) => request.get(`/profile?type=true&page=${Page}&size=${Size}`);
+  this.GetAllUncompletedProfile = (Page,Size) => request.get(`/profile?type=false&page=${Page}&size=${Size}`);
 }();

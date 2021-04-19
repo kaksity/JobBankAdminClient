@@ -20,16 +20,28 @@
                 slot="items"
                 slot-scope="props"
               >
+                <td>{{ props.item.full_name }}</td>
+                <td>{{ props.item.gender }}</td>
+                <td>{{ props.item.phone_number }}</td>
+                <td>{{ props.item.highest_qualification }}</td>
+                <td>{{ props.item.lga }}</td>
                 <td class="justify-center">
                   <v-icon
                     class="mr-2"
                   >
-                    edit
+                    camera
                   </v-icon>
-                  <v-icon disabled>delete</v-icon>
                 </td>
               </template>
             </v-data-table>
+            <v-pagination
+              v-model="CurrentPage"
+              :length="TotalNumberOfPages"
+              :value="CurrentPage"
+              @input="GoToPage"
+              @next="NextPage"
+              @previous="PreviousPage"
+            />
           </template>
         </v-basic-card>
       </v-flex>
@@ -44,6 +56,8 @@ export default {
   name: 'CompletedProfile',
   data() {
     return {
+      CurrentPage: 1,
+      TotalNumberOfPages: 0,
       headers: [
         {
           text: 'Full Name',
@@ -71,29 +85,51 @@ export default {
           value: 'lga',
           sortable: false,
         },
+        {
+          text: 'Action',
+          sortable: false,
+        },
       ],
       list: [
       ],
     };
   },
   methods: {
-    getListData() {
+    getListData(CurrentPage) {
       this.$api
-        .GetAllCompletedProfile(1,100)
+        .GetAllCompletedProfile(CurrentPage,1000)
         .then((val) => {
-          const list = val.data.data || [];
+          this.TotalNumberOfPages = val.links.total_number_pages
+          const list = val.data || [];
           this.list = list.map((item) => {
             this.$set(item, 'edit', false);
             return item;
           });
         })
         .catch((res) => {
-          console.error('getListData', res);
+          this.$message({
+            text: res.data.message,
+            type: 'error',
+          });
         });
     },
+    NextPage() {
+      this.CurrentPage = this.CurrentPage + 1;
+      this.getListData(this.CurrentPage);
+    },
+    PreviousPage() {
+      this.CurrentPage = this.CurrentPage - 1;
+      if (this.CurrentPage < 0) {
+        this.CurrentPage  = 1;
+      }
+      this.getListData(this.CurrentPage);
+    },
+    GoToPage() {
+      this.getListData(this.CurrentPage);
+    }
   },
   created() {
-    this.getListData();
+    this.getListData(this.CurrentPage);
   },
 };
 </script>

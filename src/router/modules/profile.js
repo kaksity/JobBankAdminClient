@@ -11,7 +11,7 @@ const routes = {
   },
   children: [
     {
-      path: 'markdown-editor',
+      path: 'completed',
       name: 'Completed',
       component: () => import('@/views/profile/Completed.vue'),
       meta: {
@@ -19,7 +19,7 @@ const routes = {
       },
     },
     {
-      path: 'json-editor',
+      path: 'uncompleted',
       name: 'Uncompleted',
       component: () => import('@/views/profile/Uncompleted.vue'),
       meta: {
