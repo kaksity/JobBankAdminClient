@@ -55,6 +55,14 @@ export default new Router({
             icon: 'dashboard',
           },
         },
+        {
+          path: '/profile/details/:id',
+          name: 'Details',
+          component: () => import('@/views/profile/Details.vue'),
+          meta: {
+            hidden:true,
+          },
+        },
         Profile,
         Report,
       ],

@@ -28,6 +28,7 @@
                 <td class="justify-center">
                   <v-icon
                     class="mr-2"
+                    @click="ViewDetails(props.item.id)"
                   >
                     camera
                   </v-icon>
@@ -99,7 +100,7 @@ export default {
       this.$api
         .GetAllUncompletedProfile(CurrentPage,1000)
         .then((val) => {
-          
+
           this.TotalNumberOfPages = val.links.total_number_pages
           const list = val.data || [];
           this.list = list.map((item) => {
@@ -113,6 +114,9 @@ export default {
             type: 'error',
           });
         });
+    },
+    ViewDetails(id) {
+      this.$router.push({path: `/profile/details/${id}`});
     },
     NextPage() {
       this.CurrentPage = this.CurrentPage + 1;

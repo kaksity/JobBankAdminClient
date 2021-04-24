@@ -1,6 +1,6 @@
 const routes = {
   path: '/profile',
-  name: 'Profile',
+  name: 'Profiles',
   component: {
     template: '<router-view></router-view>',
   },

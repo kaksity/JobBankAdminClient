@@ -23,19 +23,13 @@
 
 <script>
 import {
-  DynamicAnalysis,
-  TotalStatistics,
-  VisitorsLocation,
   SeparateIndicator,
 } from './components';
 
 export default {
   name: 'Dashboard',
   components: {
-    DynamicAnalysis,
-    TotalStatistics,
     SeparateIndicator,
-    VisitorsLocation,
   },
   data() {
     return {
@@ -43,30 +37,73 @@ export default {
       indicatorConfig: [
         {
           color: 'teal',
-          icon: 'people',
-          title: 'VISITORS',
-          count: 3206,
+          title: 'COMPLETED PROFILE',
+          count: 0,
         },
         {
-          color: 'light-blue',
-          icon: 'message',
-          title: 'MESSAGES',
-          count: 127,
+          color: 'gray',
+          title: 'UNCOMPLETED PROFILE',
+          count: 0,
         },
         {
           color: 'cyan accent-3',
-          icon: 'share',
-          title: 'SHARES',
-          count: 983,
+          title: 'LGA',
+          count: 0,
         },
         {
           color: 'indigo',
-          icon: 'get_app',
-          title: 'DOWNLOADS',
-          count: 2368,
+          title: 'SKILL SET',
+          count: 0,
+        },
+        {
+          color: 'teal',
+          title: 'FIRST CLASS',
+          count: 0,
+        },
+        {
+          color: 'light-blue',
+          title: 'UPPER CREDIT',
+          count: 0,
+        },
+        {
+          color: 'cyan accent-3',
+          title: 'LOWER CREDIT',
+          count: 0,
+        },
+        {
+          color: 'indigo',
+          title: 'OTHERS GRADE',
+          count: 0,
         },
       ],
     };
   },
+  methods: {
+    FillDashboardData() {
+
+      this.$api.GetDashBoardData().then((res) => {
+        const Grade = res.data.grade;
+        const Profile = res.data.profile;
+
+        this.indicatorConfig[0].count = Profile.completed_profile;
+        this.indicatorConfig[1].count = Profile.uncompleted_profile;
+        this.indicatorConfig[2].count = Profile.lga;
+        this.indicatorConfig[3].count = Profile.skill_set;
+
+        this.indicatorConfig[4].count = Grade.first_class;
+        this.indicatorConfig[5].count = Grade.lower_credit;
+        this.indicatorConfig[6].count = Grade.upper_credit;
+        this.indicatorConfig[7].count = Grade.others;
+      }).catch((err) => {
+        this.$message({
+          type: 'error',
+          text: err.message
+        });
+      });
+    }
+  },
+  created() {
+    this.FillDashboardData();
+  }
 };
 </script>

@@ -43,4 +43,14 @@ export default new function API() {
   //this.readTablesList = () => request.get(urls.readTablesList, {});
   this.GetAllCompletedProfile = (Page,Size) => request.get(`/profile?type=true&page=${Page}&size=${Size}`);
   this.GetAllUncompletedProfile = (Page,Size) => request.get(`/profile?type=false&page=${Page}&size=${Size}`);
+  this.GetProfileDetails = (id) => request.get(`/profile/${id}`);
+  this.GenerateCV = (id) => request.get(`/generate/cv/${id}`);
+  this.GetLGA = () => request.get('/lga');
+  this.GetHighestQualification = () => request.get('/education-level');
+  this.GetSkillSet = () => request.get('/skills');
+  this.GetDashBoardData = () => request.get('/dashboard');
+
+  this.GenerateProfileExcelReport = (query) => request.get(`/generate/user/profile${query}`);
+  this.GenerateQualificationExcelReport = (query) => request.get(`/generate/user/qualifications${query}`);
+  this.GenerateSkillSetExcelReport = (query) => request.get(`/generate/user/skills${query}`);
 }();

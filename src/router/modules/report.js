@@ -11,15 +11,21 @@ const routes = {
   },
   children: [
     {
-      path: 'icons',
-      name: 'Com',
-      component: () => import('@/views/widgets/svg-icon/VIcons.vue'),
+      path: 'based-on-profile',
+      name: 'Profile',
+      component: () => import('@/views/reports/BasedOnProfile.vue'),
       meta: {},
     },
     {
-      path: 'icons',
-      name: 'Icons',
-      component: () => import('@/views/widgets/svg-icon/VIcons.vue'),
+      path: 'based-on-qualifications',
+      name: 'Qualification',
+      component: () => import('@/views/reports/BasedOnQualifications.vue'),
+      meta: {},
+    },
+    {
+      path: 'based-on-skills',
+      name: 'Skill Set',
+      component: () => import('@/views/reports/BasedOnSkillSets.vue'),
       meta: {},
     },
   ],

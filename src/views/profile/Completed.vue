@@ -28,6 +28,7 @@
                 <td class="justify-center">
                   <v-icon
                     class="mr-2"
+                    @click="ViewDetails(props.item.id)"
                   >
                     camera
                   </v-icon>
@@ -112,6 +113,9 @@ export default {
             type: 'error',
           });
         });
+    },
+    ViewDetails(id) {
+      this.$router.push({path: `/profile/details/${id}`});
     },
     NextPage() {
       this.CurrentPage = this.CurrentPage + 1;
