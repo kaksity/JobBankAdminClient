@@ -195,7 +195,7 @@ export default {
       ReportURL: '',
 
       LGAListList: [],
-      EducatedStatusList: [{id: "true", name: "Yes"},{id:"false", name:"No"}],
+      EducatedStatusList: [{ id: 'true', name: 'Yes' }, { id: 'false', name: 'No' }],
       HighestQualificationList: [],
       GenderList: [{ name: 'MALE', text: 'Male' }, { name: 'FEMALE', text: 'Female' }],
       MaritalStatusList: [{ name: 'SINGLE', text: 'Single' }, { name: 'MARRIED', text: 'Married' }, { name: 'WIDOWED', text: 'Widowed' }, { name: 'DIVORCED', text: 'Divorced' }],
@@ -209,7 +209,7 @@ export default {
       }).catch((err) => {
         this.$message({
           type: 'error',
-          text: err.message
+          text: err.message,
         });
       });
     },
@@ -219,70 +219,70 @@ export default {
       }).catch((err) => {
         this.$message({
           type: 'error',
-          text: err.message
+          text: err.message,
         });
       });
     },
-    GenerateReport(){
+    GenerateReport() {
       let UrlQueryParameters = '?';
 
-      if(this.IsGender === true){
+      if (this.IsGender === true) {
         if (this.Gender === '') {
           this.$message({
             type: 'error',
-            text: 'Gender is required'
+            text: 'Gender is required',
           });
           return;
         }
         UrlQueryParameters += `gender=${this.Gender}&`;
       }
 
-      if(this.IsEmploymentStatus === true){
+      if (this.IsEmploymentStatus === true) {
         if (this.EmploymentStatus === '') {
           this.$message({
             type: 'error',
-            text: 'Employment Status is required'
+            text: 'Employment Status is required',
           });
           return;
         }
         UrlQueryParameters += `employment=${this.EmploymentStatus}&`;
       }
 
-      if(this.IsMaritalStatus === true){
+      if (this.IsMaritalStatus === true) {
         if (this.MaritalStatus === '') {
           this.$message({
             type: 'error',
-            text: 'Marital Status is required'
+            text: 'Marital Status is required',
           });
           return;
         }
         UrlQueryParameters += `marital=${this.MaritalStatus}&`;
       }
-      if(this.IsHighestQualification === true){
+      if (this.IsHighestQualification === true) {
         if (this.HighestEducationLevel === '') {
           this.$message({
             type: 'error',
-            text: 'Highest Qualification is required'
+            text: 'Highest Qualification is required',
           });
           return;
         }
         UrlQueryParameters += `qualification=${this.HighestEducationLevel}&`;
       }
-      if(this.IsLocalGovermentArea === true){
+      if (this.IsLocalGovermentArea === true) {
         if (this.LocalGovernmentArea === '') {
           this.$message({
             type: 'error',
-            text: 'Local Government Area is required'
+            text: 'Local Government Area is required',
           });
           return;
         }
         UrlQueryParameters += `lga=${this.LocalGovernmentArea}&`;
       }
-      if(this.IsEducatedStatus === true){
+      if (this.IsEducatedStatus === true) {
         if (this.EducatedStatus === '') {
           this.$message({
             type: 'error',
-            text: 'Educated Status is required'
+            text: 'Educated Status is required',
           });
           return;
         }
@@ -294,19 +294,17 @@ export default {
       this.ReportURL = '';
 
       this.$api.GenerateProfileExcelReport(UrlQueryParameters).then((res) => {
-
         this.IsDownloaded = true;
         this.ReportURL = res.url;
 
         this.$message({
           type: 'success',
-          text: res.message
+          text: res.message,
         });
-
       }).catch((err) => {
         this.$message({
           type: 'error',
-          text: err.message
+          text: err.message,
         });
       });
     },
@@ -317,6 +315,6 @@ export default {
   created() {
     this.FillLGASelect();
     this.FillHighestQualificationSelect();
-  }
-}
+  },
+};
 </script>

@@ -134,7 +134,7 @@ export default {
       IsDownloaded: false,
       ReportURL: '',
 
-      CompletedStatusList: [{id: "YES", name: "Yes"},{id:"NO", name:"No"}],
+      CompletedStatusList: [{ id: 'YES', name: 'Yes' }, { id: 'NO', name: 'No' }],
       QualificationList: [],
       GradeList: [{ text: 'First Class', value: 'FIRST CLASS' }, { text: 'Upper Credit', value: 'UPPER CREDIT' }, { text: 'Lower Credit', value: 'LOWER CREDIT' }, { text: 'Credit', value: 'CREDIT' }, { text: 'Pass', value: 'PASS' }, { text: 'Second Class Upper', value: 'SECOND CLASS UPPER' }, { text: 'Second Class Lower', value: 'SECOND CLASS LOWER' }],
     };
@@ -146,50 +146,50 @@ export default {
       }).catch((err) => {
         this.$message({
           type: 'error',
-          text: err.message
+          text: err.message,
         });
       });
     },
-    GenerateReport(){
+    GenerateReport() {
       let UrlQueryParameters = '?';
 
-      if(this.IsCompleted === true){
+      if (this.IsCompleted === true) {
         if (this.Completed === '') {
           this.$message({
             type: 'error',
-            text: 'Completed Status is required'
+            text: 'Completed Status is required',
           });
           return;
         }
         UrlQueryParameters += `completed=${this.Completed}&`;
       }
 
-      if(this.IsCourseName === true){
+      if (this.IsCourseName === true) {
         if (this.CourseName === '') {
           this.$message({
             type: 'error',
-            text: 'Course Name is required'
+            text: 'Course Name is required',
           });
           return;
         }
         UrlQueryParameters += `course=${this.CourseName}&`;
       }
 
-      if(this.IsGrade === true){
+      if (this.IsGrade === true) {
         if (this.Grade === '') {
           this.$message({
             type: 'error',
-            text: 'Grade is required'
+            text: 'Grade is required',
           });
           return;
         }
         UrlQueryParameters += `grade=${this.Grade}&`;
       }
-      if(this.IsQualification === true){
+      if (this.IsQualification === true) {
         if (this.Qualification === '') {
           this.$message({
             type: 'error',
-            text: 'Qualification is required'
+            text: 'Qualification is required',
           });
           return;
         }
@@ -200,19 +200,17 @@ export default {
       this.ReportURL = '';
 
       this.$api.GenerateQualificationExcelReport(UrlQueryParameters).then((res) => {
-
         this.IsDownloaded = true;
         this.ReportURL = res.url;
 
         this.$message({
           type: 'success',
-          text: res.message
+          text: res.message,
         });
-
       }).catch((err) => {
         this.$message({
           type: 'error',
-          text: err.message
+          text: err.message,
         });
       });
     },
@@ -222,6 +220,6 @@ export default {
   },
   created() {
     this.FillHighestQualificationSelect();
-  }
-}
+  },
+};
 </script>

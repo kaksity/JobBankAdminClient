@@ -72,13 +72,13 @@
                 <base-langbar />
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile>
+            <v-list-tile @click="GoToChangePassword">
               <v-list-tile-avatar>
-                <v-icon>account_circle</v-icon>
+                <v-icon>settings</v-icon>
               </v-list-tile-avatar>
               <v-list-tile-content>
                 <v-list-tile-title>
-                  {{ $t('common.account') }}
+                  Change Password
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -134,6 +134,9 @@ export default {
   methods: {
     logout() {
       this.$router.push({ name: 'Login' });
+    },
+    GoToChangePassword() {
+      this.$router.push({ name: 'ChangePassword' });
     },
   },
   created() {},

@@ -98,9 +98,9 @@ export default {
   methods: {
     getListData(CurrentPage) {
       this.$api
-        .GetAllCompletedProfile(CurrentPage,1000)
+        .GetAllCompletedProfile(CurrentPage, 1000)
         .then((val) => {
-          this.TotalNumberOfPages = val.links.total_number_pages
+          this.TotalNumberOfPages = val.links.total_number_pages;
           const list = val.data || [];
           this.list = list.map((item) => {
             this.$set(item, 'edit', false);
@@ -115,7 +115,7 @@ export default {
         });
     },
     ViewDetails(id) {
-      this.$router.push({path: `/profile/details/${id}`});
+      this.$router.push({ path: `/profile/details/${id}` });
     },
     NextPage() {
       this.CurrentPage = this.CurrentPage + 1;
@@ -124,13 +124,13 @@ export default {
     PreviousPage() {
       this.CurrentPage = this.CurrentPage - 1;
       if (this.CurrentPage < 0) {
-        this.CurrentPage  = 1;
+        this.CurrentPage = 1;
       }
       this.getListData(this.CurrentPage);
     },
     GoToPage() {
       this.getListData(this.CurrentPage);
-    }
+    },
   },
   created() {
     this.getListData(this.CurrentPage);

@@ -211,7 +211,7 @@ export default {
   name: 'DetailsProfile',
   data() {
     return {
-      ProfileID:'',
+      ProfileID: '',
       ProfileDetails: {},
       Qualifications: [],
       WorkExperiences: [],
@@ -228,19 +228,19 @@ export default {
       this.$api.GenerateCV(this.ProfileID).then((res) => {
         this.$message({
           type: 'success',
-          text: res.message
+          text: res.message,
         });
         this.CVGenerated = true;
         this.CVDownloadURL = res.url;
       }).catch((err) => {
         this.$message({
           type: 'error',
-          text: err.message
+          text: err.message,
         });
       });
     },
-    DownloadCV(){
-      window.open(this.CVDownloadURL)
+    DownloadCV() {
+      window.open(this.CVDownloadURL);
     },
     GetProfileDetails() {
       console.log(this.ProfileID);
@@ -249,14 +249,13 @@ export default {
         this.Qualifications = res.data.qualifications;
         this.WorkExperiences = res.data.work_experience;
         this.SkillSets = res.data.skill_set;
-
       }).catch((err) => {
         this.$message({
           type: 'error',
-          text: err.message
+          text: err.message,
         });
-      })
-    }
+      });
+    },
   },
   created() {
     this.ProfileID = this.$route.params.id;

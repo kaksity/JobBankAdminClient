@@ -76,17 +76,17 @@ export default {
       ReportURL: '',
 
       SkillSetList: [],
-      CompletedStatusList: [{id: "YES", name: "Yes"},{id:"NO", name:"No"}],
+      CompletedStatusList: [{ id: 'YES', name: 'Yes' }, { id: 'NO', name: 'No' }],
       QualificationList: [],
       GradeList: [{ text: 'First Class', value: 'FIRST CLASS' }, { text: 'Upper Credit', value: 'UPPER CREDIT' }, { text: 'Lower Credit', value: 'LOWER CREDIT' }, { text: 'Credit', value: 'CREDIT' }, { text: 'Pass', value: 'PASS' }, { text: 'Second Class Upper', value: 'SECOND CLASS UPPER' }, { text: 'Second Class Lower', value: 'SECOND CLASS LOWER' }],
     };
   },
   methods: {
-    changeSkill (i) {
+    changeSkill(i) {
       if (i !== '19') {
-        this.IsOtherSkill = false
+        this.IsOtherSkill = false;
       } else {
-        this.IsOtherSkill = true
+        this.IsOtherSkill = true;
       }
     },
     FillSkillSetSelect() {
@@ -95,50 +95,47 @@ export default {
       }).catch((err) => {
         this.$message({
           type: 'error',
-          text: err.message
+          text: err.message,
         });
       });
     },
-    GenerateReport(){
+    GenerateReport() {
       let UrlQueryParameters = '?';
 
-      if(this.IsSkilled === true){
+      if (this.IsSkilled === true) {
         if (this.Skill === '') {
           this.$message({
             type: 'error',
-            text: 'Skill is required is required'
+            text: 'Skill is required is required',
           });
           return;
         }
-        if(this.Skill === '19' && this.OtherSkill === ''){
+        if (this.Skill === '19' && this.OtherSkill === '') {
           this.$message({
             type: 'error',
-            text: 'Specify Other Skills'
+            text: 'Specify Other Skills',
           });
           return;
         }
 
-        (this.Skill === '19') ? UrlQueryParameters += `id=${this.Skill}&name=${this.OtherSkill}`: UrlQueryParameters += `id=${this.Skill}` ;
-
+        (this.Skill === '19') ? UrlQueryParameters += `id=${this.Skill}&name=${this.OtherSkill}` : UrlQueryParameters += `id=${this.Skill}`;
       }
 
       this.IsDownloaded = false;
       this.ReportURL = '';
 
       this.$api.GenerateSkillSetExcelReport(UrlQueryParameters).then((res) => {
-
         this.IsDownloaded = true;
         this.ReportURL = res.url;
 
         this.$message({
           type: 'success',
-          text: res.message
+          text: res.message,
         });
-
       }).catch((err) => {
         this.$message({
           type: 'error',
-          text: err.message
+          text: err.message,
         });
       });
     },
@@ -148,6 +145,6 @@ export default {
   },
   created() {
     this.FillSkillSetSelect();
-  }
-}
+  },
+};
 </script>

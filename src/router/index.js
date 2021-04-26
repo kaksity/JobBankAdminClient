@@ -6,101 +6,95 @@ import LayoutWithoutSidebar from '@/views/layouts/AppLayoutWithoutSidebar.vue';
 
 import Profile from './modules/profile';
 import Report from './modules/report';
+
 Vue.use(Router);
 
 /**
-* TIPS:
-* meta: {
-*   hidden: false,    // If `hidden:true` will not appear in the navigation bar or sidebar(default is false)
-*   auth: [],         // It will control the page roles (you can set multiple roles)
-*   icon: 'home',     // Icon will appear in the navigation bar or sidebar
-*   hasMulSub: false, // It has multiple children
-* }
-*/
+ * TIPS:
+ * meta: {
+ *   hidden: false,    // If `hidden:true` will not appear in the navigation bar or sidebar(default is false)
+ *   auth: [],         // It will control the page roles (you can set multiple roles)
+ *   icon: 'home',     // Icon will appear in the navigation bar or sidebar
+ *   hasMulSub: false, // It has multiple children
+ * }
+ */
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   scrollBehavior: () => ({ y: 0 }),
-  routes: [
+  routes: [{
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    meta: {
+      hidden: true,
+    },
+  },
+  {
+    path: '/',
+    redirect: { name: 'Dashboard' },
+    meta: {
+      hidden: true,
+    },
+  },
+  {
+    path: '/index',
+    name: 'Index',
+    component: Layout,
+    redirect: { name: 'Dashboard' },
+    meta: {
+      hidden: false,
+      hasMulSub: false,
+    },
+    children: [{
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/TheIndex.vue'),
+      meta: {
+        icon: 'dashboard',
+      },
+    },
     {
-      path: '/login',
-      name: 'Login',
-      component: Login,
+      path: '/profile/details/:id',
+      name: 'Details',
+      component: () => import('@/views/profile/Details.vue'),
       meta: {
         hidden: true,
       },
     },
     {
-      path: '/',
-      redirect: { name: 'Dashboard' },
+      path: '/change-password',
+      name: 'ChangePassword',
+      component: () => import('@/views/admin/ChangePassword.vue'),
       meta: {
         hidden: true,
       },
     },
-    {
-      path: '/index',
-      name: 'Index',
-      component: Layout,
-      redirect: { name: 'Dashboard' },
-      meta: {
-        hidden: false,
-        hasMulSub: false,
-      },
-      children: [
-        {
-          path: '/dashboard',
-          name: 'Dashboard',
-          component: () => import('@/views/dashboard/TheIndex.vue'),
-          meta: {
-            icon: 'dashboard',
-          },
-        },
-        {
-          path: '/profile/details/:id',
-          name: 'Details',
-          component: () => import('@/views/profile/Details.vue'),
-          meta: {
-            hidden:true,
-          },
-        },
-        Profile,
-        Report,
-      ],
+    Profile,
+    Report,
+    ],
+  },
+  {
+    path: '/403',
+    meta: {
+      hidden: true,
     },
-    {
-      path: '/admin',
-      component: LayoutWithoutSidebar,
-      redirect: { name: 'Admin' },
-      children: [
-        {
-          path: '/admin',
-          name: 'Admin',
-          component: () => import('@/views/admin/VHomepage.vue'),
-          meta: {},
-        },
-      ],
+    // redirect: { name: 'Index' },
+    component: Login,
+  },
+  {
+    path: '/404',
+    meta: {
+      hidden: true,
     },
-    {
-      path: '/403',
-      meta: {
-        hidden: true,
-      },
-      // redirect: { name: 'Index' },
-      component: Login,
+    component: () => import('@/views/error-pages/App404.vue'),
+  },
+  {
+    path: '*',
+    redirect: '/404',
+    meta: {
+      hidden: true,
     },
-    {
-      path: '/404',
-      meta: {
-        hidden: true,
-      },
-      component: () => import('@/views/error-pages/App404.vue'),
-    },
-    {
-      path: '*',
-      redirect: '/404',
-      meta: {
-        hidden: true,
-      },
-    },
+  },
   ],
 });

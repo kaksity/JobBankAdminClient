@@ -80,7 +80,6 @@ export default {
   },
   methods: {
     FillDashboardData() {
-
       this.$api.GetDashBoardData().then((res) => {
         const Grade = res.data.grade;
         const Profile = res.data.profile;
@@ -97,13 +96,13 @@ export default {
       }).catch((err) => {
         this.$message({
           type: 'error',
-          text: err.message
+          text: err.message,
         });
       });
-    }
+    },
   },
   created() {
     this.FillDashboardData();
-  }
+  },
 };
 </script>
